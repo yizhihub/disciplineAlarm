@@ -1,0 +1,75 @@
+# ignore file for Keil and IAR created by lgd V1.2 JAN2021
+
+
+RemoteSystemsTempFiles
+Packages
+_build 
+
+.sconsign.dblite
+*.pyc
+.settings
+.metadata 
+
+*.dep
+*.bak
+*.o
+*.d
+*.i
+*.__i
+*.administrator
+*.hex
+*.bin
+*.out
+*.htm
+*.tra
+*.lnp
+*.plg
+*.lst
+*.uvgui.*
+*.tmp
+*.crf
+*.map
+*.cout
+*.pbi
+*.pbd
+*.pbd.*
+*.iex
+
+# MDK have this temporary fiel Event RecorderStub.scvd, ignore it.
+# .ini trace this file for debug initilization ini file, track it.
+# .srec ,discover this file in AWorks Prj,maybe used for burn chip.
+# .scf  this file is user defined keil scatter file for flasm mem. map, track it. 
+# .sct MDK can generate this sct file(is linker files for keil itself) automaticly, ignore it.
+# .uvoptx file this file contain Keil Download and Debug Configration info, its can be deleted and regenerated, which is critical,but I don't want to track it, becasue I have mastered it !
+# .uvprojx  if you do not track this file when you extract a history version, you can not open it with keil !  trcak it, So does .uvmpw file.
+*.axf
+*.scr
+*.sct
+*.uvoptx
+*.uvguix.*
+*.srec
+*.scvd  
+JLinkLog.txt
+
+
+# the following added for IAR project 
+*.sim
+*.ko
+*.so
+*.so.dbg
+*.mod.c
+*.symtypes
+*.elf
+*.gz
+*.xcl
+*.browse
+*.linf
+SI
+settings
+
+*.swp
+*.swo
+*.dep
+#*.ewp  this IAR config file contain Options->C/C++ compiler->Preprocessor path info. and workspace files info.
+#*.ewt  this IAR config file contain workspace dir tree info.
+
