@@ -3,3 +3,4 @@
 3. add new var. dual Delay Protect 1000ms, stallPRoIssue03-fixed 
 4. do something one by desktop-asus 
 5. do something two by x1c 
+6. do something three by web 
