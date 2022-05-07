@@ -985,7 +985,7 @@ uint32_t mypow(uint8_t m,uint8_t n)
 void OLED_P8x16Dot(uint8_t x,uint8_t y,float m, uint8_t ucFracNum, uint8_t ucUnit) 
 {
 #if    1          //小数点浮动  高位灭零  负号位置固定
-    uint8_t shi,ge,subshi,subbai;
+    uint8_t subshi,subbai;
     uint8_t i,length=0,x_temp,x_start;
     uint16_t inte,temp;//deci; 
     

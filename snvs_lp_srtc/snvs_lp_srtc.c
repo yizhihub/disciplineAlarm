@@ -47,7 +47,8 @@
 #include "vs10xx.h"
 #include "MusicDataMP3.h"
 #include "虫儿飞-少儿歌曲.h"
-#include "阳光彩虹小白马.h"
+#include "小字一组.h"
+//#include "阳光彩虹小白马.h"
 //#include "说了再见.h"
 //#include "香水百合-张韶涵.h"
 #include "fsl_adc.h"
@@ -106,10 +107,12 @@ void MusicPlay1(void)
     
 }  
 
-void MusicPlay2(void)
+void MusicPlay2(uint8_t week)
 {
-    INT32S lCount,i;   
-    lCount = 0x37412D;//0x450DDE; //0x450DDD; //sizeof(MusicData);
+    INT32S lCount,i,j,lDatalen, lDatalenSevenDivide;
+    lDatalen            =  0x9DEBC;
+    lDatalenSevenDivide = (lDatalen + 7u / 7u);
+    
     i      = 0;
 
     VS_Init();
@@ -119,16 +122,29 @@ void MusicPlay2(void)
     VS_Restart_Play();  					//重启播放 
     VS_Set_All();        					//设置音量等信息 			 
     VS_Reset_DecodeTime();					//复位解码时间 
-    OLED_P8x16Str(16, 4, (uint8_t *)"PLay#2......", 1);
-    while (lCount > 0) {
+    OLED_P8x16Str(16, 4, (uint8_t *)"PLay#2......", 1); 
+   
+    /*
+     * 无论星期几，播放时间都控制在1min左右，18x4=72s
+     */
+    for (j = 0; j < ((8 - week) >> 2); j++) {
+        if (week < 7)
+            lCount = lDatalenSevenDivide * week;
+        else 
+            lCount = lDatalen;
 
-        if (VS_Send_MusicData(&Yangguangcaihongxiaobaima[i]) == 0) {
-             i += 32;
-             lCount -= 32;
-        } else {
-            GPIO1->DR ^= (1 << 19);  
+        i = 0;
+        while (lCount > 0) {
+
+            if (VS_Send_MusicData(&Xiaoziyizu[i]) == 0) {
+                 i += 32;
+                 lCount -= 32;
+            } else {
+                GPIO1->DR ^= (1 << 19);  
+            }
         }
     }
+    
     OLED_P8x16Str(16, 4, (uint8_t *)"            ", 1); 
 } 
  
@@ -179,19 +195,36 @@ void beepEi(uint16_t ucStatus)
     }
 }
 
+/*
+* 基姆拉尔森计算公式 
+* W= (d+2*m+3*(m+1)/5+y+y/4-y/100+y/400) mod 7
+* https://www.cnblogs.com/lfri/p/11509669.html  
+* https://blog.csdn.net/yf210yf/article/details/9744259 
+* https://blog.csdn.net/x1131230123/article/details/103067453
+* 
+*/
+int weekCalc(int y, int m, int d)
+{
+    if (m < 3) {
+        m += 12;
+        y--;
+    }
+
+    int w = (d + 2*m + 3*(m + 1)/5 + y + y/4 - y/100 + y/400 + 1) % 7;
+    return w;
+}
+
 int main(void)
 {
-    uint32_t sec;
-    uint8_t  index, ucSecBak, ucBeepStatus;
+    uint8_t  ucSecBak;
     int16_t  sTemperature[2];
     int32_t  ulNetForbiddenCnt = 0;
     uint16_t usBatAdcRaw = 0;
-    
-    INT16U usi;
+    uint8_t  ucWeekDay;
     
     snvs_hp_rtc_datetime_t rtcDate;
-    snvs_lp_srtc_datetime_t srtcDate;
     snvs_hp_rtc_config_t snvsRtcConfig;
+//    snvs_lp_srtc_datetime_t srtcDate;
     snvs_lp_srtc_config_t snvsSrtcConfig;
     gpio_pin_config_t led_config ={kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
     
@@ -337,8 +370,6 @@ int main(void)
     while (1)
     {
         busyWait = true;
-        index = 0;
-        sec = 0;
 
         /* Get date time */
         SNVS_HP_RTC_GetDatetime(SNVS, &rtcDate);  
@@ -356,7 +387,7 @@ int main(void)
                     MusicPlay1();
                     ulNetForbiddenCnt = 15 * 60;
                 } else {
-                    MusicPlay2();
+                    MusicPlay1();
                     ulNetForbiddenCnt = 30 * 60;
                 }
                 OLED_P8x16Str(16, 4, (uint8_t *)"key Press !!", 1);
@@ -374,7 +405,7 @@ int main(void)
             OLED_P16x32Time(0, &rtcDate);                               /* OLED Time Dispaly          */
             
             OLED_P8x16Dot(0, 6, sTemperature[0] / 10.0f, 1, 0);         /*   OLED_P16x32Num(1, sTemperature[1], 1); */
-            OLED_P8x16Dot(64, 6, usBatAdcRaw * 3.35f / 4095.0f * 1.639 - 1.0195 , 2, 1);  /* it cost a lot to get thsi formala  -/\-*/
+            OLED_P8x16Dot(64, 6, usBatAdcRaw * 3.35f / 4095.0f * 1.639f - 1.0195f , 2, 1);  /* it cost a lot to get thsi formala  -/\-*/
 
             PRINTF("Current datetime: %04hd-%02hd-%02hd %02hd:%02hd:%02hd\r\n", rtcDate.year, rtcDate.month, rtcDate.day,  /* print default time */
                    rtcDate.hour, rtcDate.minute, rtcDate.second);  
@@ -384,7 +415,7 @@ int main(void)
             /*
              * 断网断电前警报提醒。
              */ 
-            if (rtcDate.hour == 21u && rtcDate.minute == 49) { 
+            if (rtcDate.hour == 22u && rtcDate.minute == 10u) { 
                 if (rtcDate.second < 58)
                     beepDi(500);
                 else 
@@ -396,14 +427,21 @@ int main(void)
             /*
              * 闹钟铃声 
              */
-           if (rtcDate.hour == 06 && rtcDate.minute == 50 && rtcDate.second < 15) {
+           if (rtcDate.hour == 06 && rtcDate.minute == 00 && rtcDate.second < 15) {
                
                OLED_P8x16Str(16, 4, (uint8_t *)"Get UPPP!!!!", 1);
                
-                if (rtcDate.second < 10)
+                if (rtcDate.second < 10) {
                     beepEi(500);
-                else 
-                    MusicPlay2();                 // Play GetUP Music, beepEi(10000); // 持续发声，大概持续5s。                    
+                } else {
+                    /*
+                     * 根据星期几播放的不同的音乐
+                     */ 
+                    ucWeekDay = weekCalc(rtcDate.year, rtcDate.month, rtcDate.day);        /*  0 ~ 6 */ 
+                    if (ucWeekDay == 0) ucWeekDay = 7; 
+          
+                    MusicPlay2(ucWeekDay);                 // Play GetUP Music, beepEi(10000); // 持续发声，大概持续5s。
+                }
             } else { 
                 beepDi(0);
             }  
