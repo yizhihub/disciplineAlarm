@@ -111,7 +111,7 @@ void MusicPlay2(uint8_t week)
 {
     INT32S lCount,i,j,lDatalen, lDatalenSevenDivide;
     lDatalen            =  0x9DEBC;
-    lDatalenSevenDivide = (lDatalen + 7u / 7u);
+    lDatalenSevenDivide = (lDatalen + 7u) / 7u;
     
     i      = 0;
 
