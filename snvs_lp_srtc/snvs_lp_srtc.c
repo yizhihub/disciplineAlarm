@@ -1,36 +1,6 @@
 /*
  * The Clear BSD License
- * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016 NXP
  * All rights reserved.
- *
- * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided
- *  that the following conditions are met:
- *
- * o Redistributions of source code must retain the above copyright notice, this list
- *   of conditions and the following disclaimer.
- *
- * o Redistributions in binary form must reproduce the above copyright notice, this
- *   list of conditions and the following disclaimer in the documentation and/or
- *   other materials provided with the distribution.
- *
- * o Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from this
- *   software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE.
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "fsl_debug_console.h"
@@ -46,7 +16,7 @@
 #include "imu_spi.h"
 #include "vs10xx.h"
 #include "MusicDataMP3.h"
-#include "虫儿飞-少儿歌曲.h"
+#include "虫儿飞-少儿歌曲.h"                                                   // 虫儿飞 GBK乱码测试
 #include "小字一组.h"
 //#include "阳光彩虹小白马.h"
 //#include "说了再见.h"
@@ -83,16 +53,16 @@ volatile bool busyWait;
 void MusicPlay1(void)
 {
     INT32S lCount,i;   
-    lCount = 0x1ADD20; //0x450DDD; //sizeof(MusicData);
+    lCount = 0x1ADD20;
     i      = 0;
     
     VS_Init();
 //    VS_HD_Reset();
     VS_Soft_Reset();
     msDelay(50);
-    VS_Restart_Play();  					//重启播放 
-    VS_Set_All();        					//设置音量等信息 			 
-    VS_Reset_DecodeTime();					//复位解码时间 	 
+    VS_Restart_Play();                                                  // 重启播放 
+    VS_Set_All();                                                       // 设置音量等信息 
+    VS_Reset_DecodeTime();                                              // 复位解码时间  
     OLED_P8x16Str(16, 4, (uint8_t *)"PLay#1......", 1);    
     while (lCount > 0) {
 
@@ -119,9 +89,9 @@ void MusicPlay2(uint8_t week)
 //    VS_HD_Reset();
     VS_Soft_Reset();
     msDelay(50);
-    VS_Restart_Play();    //重启播放
-    VS_Set_All();         //设置音量等信息
-    VS_Reset_DecodeTime();//复位解码时间
+    VS_Restart_Play();                                                  //重启播放
+    VS_Set_All();                                                       //设置音量等信息
+    VS_Reset_DecodeTime();                                              //复位解码时间
     OLED_P8x16Str(16, 4, (uint8_t *)"PLay#2......", 1); 
    
     /*
@@ -134,9 +104,9 @@ void MusicPlay2(uint8_t week)
             lCount = lDatalen;
 
         i = 0;
-        VS_Restart_Play();    //重启播放
-        VS_Set_All();         //设置音量等信息
-        VS_Reset_DecodeTime();//复位解码时间
+        VS_Restart_Play();                                              //重启播放
+        VS_Set_All();                                                   //设置音量等信息
+        VS_Reset_DecodeTime();                                          //复位解码时间
         while (lCount > 0) {
 
             if (VS_Send_MusicData(&Xiaoziyizu[i]) == 0) {
@@ -244,10 +214,10 @@ int main(void)
     /*
      * LED and Relay pin and key
      */
-    GPIO_PinInit(GPIO1, 19, &led_config);              // led pin
-    GPIO_PinInit(GPIO1, 4, &led_config);               // relay       AD_B0_04 
-    led_config.direction = kGPIO_DigitalInput; 
-    GPIO_PinInit(GPIO5, 0, &led_config);               // key
+    GPIO_PinInit(GPIO1, 19, &led_config);                               // led pin
+    GPIO_PinInit(GPIO1, 4, &led_config);                                // relay       AD_B0_04 
+    led_config.direction = kGPIO_DigitalInput;                         
+    GPIO_PinInit(GPIO5, 0, &led_config);                                // key
     led_config.direction = kGPIO_DigitalOutput; 
     
     /* 
@@ -278,7 +248,7 @@ int main(void)
      *  DS18B20  pin   GPIO_PinInit(GPIO1, 13, &led_config) change to ADC channel 
      */
      led_config.direction = kGPIO_DigitalInput;
-     GPIO_PinInit(GPIO1, 12, &led_config);             // DS18B20  UART1 TX     
+     GPIO_PinInit(GPIO1, 12, &led_config);                              // DS18B20  UART1 TX     
      
     
     /* Init SNVS_HP */
@@ -432,7 +402,7 @@ int main(void)
                 if (rtcDate.second < 58)
                     beepDi(500);
                 else 
-                   MusicPlay1();                // Play ready to sleep music beepDi(5000); // 持续发声 小字三组C，大概持续2.4s。                    
+                   MusicPlay1();                                        // Play ready to sleep music beepDi(5000); // 持续发声 小字三组C，大概持续2.4s。                    
             } else { 
                 beepDi(0);
             }
@@ -441,7 +411,7 @@ int main(void)
                 (rtcDate.hour == 23u) ||
                 (rtcDate.hour == 0u)  || 
                 (rtcDate.hour == 1u && rtcDate.minute <= 10u) ||
-                ulNetForbiddenCnt > 0) {                                     /* add a temporary net-forbidden time counter  */
+                ulNetForbiddenCnt > 0) {                                /* add a temporary net-forbidden time counter  */
                 GPIO1->DR  |= (1 << 4); 
                 if (ulNetForbiddenCnt > 0) {
                     OLED_P8x16Str(16, 4, (uint8_t *)"Remain:", 0);
@@ -470,7 +440,7 @@ int main(void)
                      */ 
                     ucWeekDay = weekCalc(rtcDate.year, rtcDate.month, rtcDate.day);        /*  0 ~ 6 */ 
                     if (ucWeekDay == 0) ucWeekDay = 7; 
-                    MusicPlay2(ucWeekDay);                 // Play GetUP Music, beepEi(10000); // 持续发声，大概持续5s。
+                    MusicPlay2(ucWeekDay);                              // Play GetUP Music, beepEi(10000); // 持续发声，大概持续5s。
                 }
             } else { 
                 beepDi(0);
