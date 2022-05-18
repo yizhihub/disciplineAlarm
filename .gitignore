@@ -1,5 +1,8 @@
-# ignore file for Keil and IAR created by lgd V1.2 JAN2021
+# ignore file for Keil and IAR created by lgd V1.3 NOV2021
 
+
+#NOTE! Please use 'git-ls-files -i --exclude-standard' command after changing this file, to see if there are any tracked files which get ignored after the change.
+# NOTE! Don't add files that are generated in specific subdirectories here. you can add them in the ".gitignore" file in that subdirectory instead, Here is global setting.
 
 RemoteSystemsTempFiles
 Packages
@@ -9,10 +12,14 @@ _build
 *.pyc
 .settings
 .metadata 
+._*
+.DS_Store
 
 *.dep
 *.bak
 *.o
+*.o.*
+*.order
 *.d
 *.i
 *.__i
@@ -35,7 +42,7 @@ _build
 *.pbd.*
 *.iex
 
-# MDK have this temporary fiel Event RecorderStub.scvd, ignore it.
+# MDK have this temporary file Event RecorderStub.scvd, ignore it.
 # .ini trace this file for debug initilization ini file, track it.
 # .srec ,discover this file in AWorks Prj,maybe used for burn chip.
 # .scf  this file is user defined keil scatter file for flasm mem. map, track it. 
