@@ -22,6 +22,8 @@
 //#include "说了再见.h"
 //#include "香水百合-张韶涵.h"
 #include "fsl_adc.h"
+#include "fsl_wdog.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -42,6 +44,7 @@
  ******************************************************************************/
 
 volatile bool busyWait;
+static WDOG_Type *ptWdog_base = WDOG1;
 
 /*******************************************************************************
  * Code
@@ -71,6 +74,7 @@ void MusicPlay1(void)
              lCount -= 32;
         } else {
             GPIO1->DR ^= (1 << 19);  
+            WDOG_Refresh(ptWdog_base);
         }
     }
     OLED_P8x16Str(16, 4, (uint8_t *)"            ", 1); 
@@ -114,6 +118,7 @@ void MusicPlay2(uint8_t week)
                  lCount -= 32;
             } else {
                 GPIO1->DR ^= (1 << 19);  
+                WDOG_Refresh(ptWdog_base);
             }
         }
     }
@@ -194,6 +199,7 @@ int main(void)
     int32_t  ulNetForbiddenCnt = 0;
     uint16_t usBatAdcRaw = 0;
     uint8_t  ucWeekDay;
+    wdog_config_t tWdogConfig;
     
     snvs_hp_rtc_datetime_t rtcDate;
     snvs_hp_rtc_config_t snvsRtcConfig;
@@ -326,7 +332,7 @@ int main(void)
     VS_HD_Reset();
     VS_Soft_Reset();
    
-    vsset.mvol=195;
+    vsset.mvol=191;
     VS_Set_All(); 
     
 //    while(1) {
@@ -339,6 +345,10 @@ int main(void)
 //        PRINTF("ADC Value: %d\r\n", ADC_GetChannelConversionValue(BAT_ADC_BASE, BAT_ADC_CHANNEL_GROUP));
 //        OLED_P8x16Four(64, 6, ADC_GetChannelConversionValue(BAT_ADC_BASE, BAT_ADC_CHANNEL_GROUP));
 //    }
+    WDOG_GetDefaultConfig(&tWdogConfig);
+    tWdogConfig.timeoutValue = 0x0Au;
+    tWdogConfig.interruptTimeValue = 0x02u;
+    WDOG_Init(ptWdog_base, &tWdogConfig); 
 
     while (1)
     {
@@ -349,6 +359,7 @@ int main(void)
         
         if (ucSecBak != rtcDate.second) {
             ucSecBak = rtcDate.second;
+            WDOG_Refresh(ptWdog_base);
             if (ulNetForbiddenCnt > 0) ulNetForbiddenCnt--;
             
             /*
@@ -427,7 +438,7 @@ int main(void)
             /*
              * 闹钟铃声 
              */
-           if (rtcDate.hour == 06 && rtcDate.minute == 00 && rtcDate.second < 15) {
+           if (rtcDate.hour == 06 && rtcDate.minute == 00) {
                
                OLED_P8x16Str(16, 4, (uint8_t *)"Get UPPP!!!!", 1);
                
