@@ -10,18 +10,23 @@
 
 #include "pin_mux.h"
 #include "clock_config.h"
-
+#define DEBUG_DISABLE_MUSIC 0
 #include "oled.h"
 #include "DS18B20.h"
 #include "imu_spi.h"
 #include "vs10xx.h"
 #include "MusicDataMP3.h"
+#include "fsl_adc.h"
+#include "fsl_wdog.h"
+
+#if DEBUG_DISABLE_MUSIC == 0
 #include "虫儿飞-少儿歌曲.h"                                                   // 虫儿飞 GBK乱码测试
 #include "小字一组.h"
 //#include "阳光彩虹小白马.h"
 //#include "说了再见.h"
 //#include "香水百合-张韶涵.h"
-#include "fsl_adc.h"
+#endif
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -42,6 +47,7 @@
  ******************************************************************************/
 
 volatile bool busyWait;
+static WDOG_Type *ptWdog_base = WDOG1;
 
 /*******************************************************************************
  * Code
@@ -66,12 +72,15 @@ void MusicPlay1(void)
     OLED_P8x16Str(16, 4, (uint8_t *)"PLay#1......", 1);    
     while (lCount > 0) {
 
+        #if DEBUG_DISABLE_MUSIC == 0
         if (VS_Send_MusicData(&Chongerfei[i]) == 0) {
              i += 32;
              lCount -= 32;
         } else {
             GPIO1->DR ^= (1 << 19);  
+            WDOG_Refresh(ptWdog_base);
         }
+        #endif
     }
     OLED_P8x16Str(16, 4, (uint8_t *)"            ", 1); 
     
@@ -109,12 +118,15 @@ void MusicPlay2(uint8_t week)
         VS_Reset_DecodeTime();                                          //复位解码时间
         while (lCount > 0) {
 
+            #if DEBUG_DISABLE_MUSIC == 0
             if (VS_Send_MusicData(&Xiaoziyizu[i]) == 0) {
                  i += 32;
                  lCount -= 32;
             } else {
                 GPIO1->DR ^= (1 << 19);  
+                WDOG_Refresh(ptWdog_base);
             }
+            #endif
         }
     }
     
@@ -194,6 +206,7 @@ int main(void)
     int32_t  ulNetForbiddenCnt = 0;
     uint16_t usBatAdcRaw = 0;
     uint8_t  ucWeekDay;
+    wdog_config_t tWdogConfig;
     
     snvs_hp_rtc_datetime_t rtcDate;
     snvs_hp_rtc_config_t snvsRtcConfig;
@@ -326,7 +339,7 @@ int main(void)
     VS_HD_Reset();
     VS_Soft_Reset();
    
-    vsset.mvol=195;
+    vsset.mvol=191;
     VS_Set_All(); 
     
 //    while(1) {
@@ -339,6 +352,10 @@ int main(void)
 //        PRINTF("ADC Value: %d\r\n", ADC_GetChannelConversionValue(BAT_ADC_BASE, BAT_ADC_CHANNEL_GROUP));
 //        OLED_P8x16Four(64, 6, ADC_GetChannelConversionValue(BAT_ADC_BASE, BAT_ADC_CHANNEL_GROUP));
 //    }
+    WDOG_GetDefaultConfig(&tWdogConfig);
+    tWdogConfig.timeoutValue = 0x0Au;
+    tWdogConfig.interruptTimeValue = 0x02u;
+    WDOG_Init(ptWdog_base, &tWdogConfig); 
 
     while (1)
     {
@@ -349,6 +366,7 @@ int main(void)
         
         if (ucSecBak != rtcDate.second) {
             ucSecBak = rtcDate.second;
+            WDOG_Refresh(ptWdog_base);
             if (ulNetForbiddenCnt > 0) ulNetForbiddenCnt--;
             
             /*
@@ -427,7 +445,7 @@ int main(void)
             /*
              * 闹钟铃声 
              */
-           if (rtcDate.hour == 06 && rtcDate.minute == 00 && rtcDate.second < 15) {
+           if (rtcDate.hour == 06 && rtcDate.minute == 00) {
                
                OLED_P8x16Str(16, 4, (uint8_t *)"Get UPPP!!!!", 1);
                
