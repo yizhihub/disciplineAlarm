@@ -95,11 +95,11 @@ void MusicPlay2(uint8_t week)
     OLED_P8x16Str(16, 4, (uint8_t *)"PLay#2......", 1); 
    
     /*
-     * 无论星期几，播放时间都控制在1min左右，18x4=72s
+     * 无论星期几，播放时间都控制在1min左右，18x32s
      */
-    for (j = 0; j < ((8 - week) << 2); j++) {
+    for (j = 0; j < ((8 - week) << 5); j++) {
         if (week < 7)
-            lCount = lDatalenSevenDivide * week;
+            lCount = lDatalenSevenDivide * week;                        // week = 1~7
         else 
             lCount = lDatalen;
 
@@ -326,7 +326,7 @@ int main(void)
     VS_HD_Reset();
     VS_Soft_Reset();
    
-    vsset.mvol=195;
+    vsset.mvol=190;
     VS_Set_All(); 
     
 //    while(1) {
