@@ -215,14 +215,15 @@ int main(void)
      * LED and Relay pin and key
      */
     GPIO_PinInit(GPIO1, 19, &led_config);                               // led pin
+    led_config.outputLogic = 1;
     GPIO_PinInit(GPIO1, 4, &led_config);                                // relay       AD_B0_04 
     led_config.direction = kGPIO_DigitalInput;                         
     GPIO_PinInit(GPIO5, 0, &led_config);                                // key
-    led_config.direction = kGPIO_DigitalOutput; 
     
     /* 
      * OLED pin  ≥ı ºªØ  
      */
+    led_config.direction = kGPIO_DigitalOutput;
     GPIO_PinInit(GPIO5, 2, &led_config);
     GPIO_PinInit(GPIO3, 4, &led_config);
     GPIO_PinInit(GPIO3, 2, &led_config);
@@ -231,7 +232,8 @@ int main(void)
     
     /*
      * Beep pin
-     */ 
+     */
+    led_config.outputLogic = 0; 
     GPIO_PinInit(GPIO1, 0, &led_config); 
     
     
@@ -412,7 +414,7 @@ int main(void)
                 (rtcDate.hour == 0u)  || 
                 (rtcDate.hour == 1u && rtcDate.minute <= 10u) ||
                 ulNetForbiddenCnt > 0) {                                /* add a temporary net-forbidden time counter  */
-                GPIO1->DR  |= (1 << 4); 
+                GPIO1->DR  &= ~(1 << 4); 
                 if (ulNetForbiddenCnt > 0) {
                     OLED_P8x16Str(16, 4, (uint8_t *)"Remain:", 0);
                     OLED_P8x16Four(16 + 56, 4, ulNetForbiddenCnt);
@@ -420,7 +422,7 @@ int main(void)
                     OLED_P8x16Str(16, 4, (uint8_t *)"NO LMML !!!!", 1);
                 }
             } else { 
-                GPIO1->DR  &= ~(1 << 4); 
+                GPIO1->DR  |= (1 << 4); 
                 OLED_P8x16Str(16, 4, (uint8_t *)"            ", 1);
             }
             

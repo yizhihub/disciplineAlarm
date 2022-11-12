@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>MIMXRT1052DVL6B</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.MIMXRT1052_DFP.10.0.2</PackID>
+          <PackID>NXP.MIMXRT1052_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>CPUTYPE("Cortex-M7") FPU3(DFPU)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -185,6 +185,7 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -355,7 +356,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>DEBUG, __STARTUP_INITIALIZE_NONCACHEDATA</Define>
@@ -655,13 +656,13 @@
       <TargetName>snvs_lp_srtc flexspi_nor_debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1052DVL6B</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.MIMXRT1052_DFP.10.0.2</PackID>
+          <PackID>NXP.MIMXRT1052_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>CPUTYPE("Cortex-M7") FPU3(DFPU)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -830,6 +831,7 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1000,7 +1002,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>__STARTUP_INITIALIZE_NONCACHEDATA</Define>
@@ -1413,7 +1415,7 @@
         <TargetCommonOption>
           <Device>MIMXRT1052DVL6B</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.MIMXRT1052_DFP.10.0.2</PackID>
+          <PackID>NXP.MIMXRT1052_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>CPUTYPE("Cortex-M7") FPU3(DFPU)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1582,6 +1584,7 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1752,7 +1755,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>__STARTUP_INITIALIZE_NONCACHEDATA</Define>
@@ -2058,7 +2061,7 @@
         <TargetCommonOption>
           <Device>MIMXRT1052DVL6B</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.MIMXRT1052_DFP.10.0.2</PackID>
+          <PackID>NXP.MIMXRT1052_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>CPUTYPE("Cortex-M7") FPU3(DFPU)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -2227,6 +2230,7 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -2397,7 +2401,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>NDEBUG, __STARTUP_INITIALIZE_NONCACHEDATA</Define>
@@ -2703,7 +2707,7 @@
         <TargetCommonOption>
           <Device>MIMXRT1052DVL6B</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.MIMXRT1052_DFP.10.0.2</PackID>
+          <PackID>NXP.MIMXRT1052_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>CPUTYPE("Cortex-M7") FPU3(DFPU)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -2872,6 +2876,7 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -3042,7 +3047,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>__STARTUP_INITIALIZE_NONCACHEDATA</Define>
@@ -3353,7 +3358,7 @@
         <TargetCommonOption>
           <Device>MIMXRT1052DVL6B</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.MIMXRT1052_DFP.10.0.2</PackID>
+          <PackID>NXP.MIMXRT1052_DFP.12.2.0</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>CPUTYPE("Cortex-M7") FPU3(DFPU)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -3522,6 +3527,7 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -3692,7 +3698,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>__STARTUP_INITIALIZE_NONCACHEDATA</Define>
@@ -3995,5 +4001,20 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>&lt;Project Info&gt;</LayName>
+        <LayDesc></LayDesc>
+        <LayUrl></LayUrl>
+        <LayKeys></LayKeys>
+        <LayCat></LayCat>
+        <LayLic></LayLic>
+        <LayTarg>0</LayTarg>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>
