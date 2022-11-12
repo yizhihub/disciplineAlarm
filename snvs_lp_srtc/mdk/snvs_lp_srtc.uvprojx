@@ -10,7 +10,7 @@
       <TargetName>snvs_lp_srtc debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -129,7 +129,7 @@
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>0</UseTargetDll>
+            <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>1</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
@@ -543,6 +543,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_wdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -778,7 +788,7 @@
             <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
-            <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
+            <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
@@ -1295,6 +1305,16 @@
               <FileName>fsl_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1942,6 +1962,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_wdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2587,6 +2617,16 @@
               <FileName>fsl_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3239,6 +3279,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_wdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3884,6 +3934,16 @@
               <FileName>fsl_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wdog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\..\..\devices\MIMXRT1052\drivers\fsl_wdog.h</FilePath>
             </File>
           </Files>
         </Group>
