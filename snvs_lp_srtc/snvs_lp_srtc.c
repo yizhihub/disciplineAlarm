@@ -38,6 +38,10 @@
 #define BAT_ADC_CHANNEL         2U
 #define BAT_ADC_CHANNEL_GROUP   0U
 
+#define RELAY_ON  GPIO1->DR  &= ~(1 << 20)
+#define RELAY_OFF GPIO1->DR  |= (1 << 20)
+#define RELAY_TOG GPIO1->DR  ^= (1 << 20)
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -237,11 +241,17 @@ int main(void)
      * OLED pin  初始化  
      */
     led_config.direction = kGPIO_DigitalOutput;
-    GPIO_PinInit(GPIO5, 2, &led_config);
-    GPIO_PinInit(GPIO3, 4, &led_config);
-    GPIO_PinInit(GPIO3, 2, &led_config);
-    GPIO_PinInit(GPIO2, 30,&led_config);
+//    GPIO_PinInit(GPIO5, 2, &led_config);
+//    GPIO_PinInit(GPIO3, 4, &led_config);
+//    GPIO_PinInit(GPIO3, 2, &led_config);
+//    GPIO_PinInit(GPIO2, 30,&led_config);
     GPIO_PinInit(GPIO1, 20,&led_config); 
+    
+    GPIO_PinInit(GPIO5, 1, &led_config);
+    GPIO_PinInit(GPIO3, 5, &led_config);
+    GPIO_PinInit(GPIO3, 3, &led_config);
+    GPIO_PinInit(GPIO2, 31,&led_config);
+    GPIO_PinInit(GPIO1, 21,&led_config); 
     
     /*
      * Beep pin
@@ -285,10 +295,10 @@ int main(void)
     
     /* Set a start date time and start RT */
 //    srtcDate.year = 2022U;
-//    srtcDate.month = 1U;
-//    srtcDate.day = 11U;
-//    srtcDate.hour = 22U;
-//    srtcDate.minute = 28;
+//    srtcDate.month = 11U;
+//    srtcDate.day = 12U;
+//    srtcDate.hour = 19U;
+//    srtcDate.minute = 29;
 //    srtcDate.second = 30;
 
 //    SNVS_LP_SRTC_SetDatetime(SNVS, &srtcDate);
@@ -341,7 +351,7 @@ int main(void)
     VS_HD_Reset();
     VS_Soft_Reset();
    
-    vsset.mvol=190;
+    vsset.mvol=191;
     VS_Set_All(); 
     
 //    while(1) {
@@ -418,21 +428,21 @@ int main(void)
             /*
              * 断网断电前警报提醒及继电器动作
              */ 
-            if (rtcDate.hour == 22u && rtcDate.minute == 9u) { 
-                if (rtcDate.second < 58)
-                    beepDi(500);
-                else 
+            if (rtcDate.hour == 22u && rtcDate.minute == 59u) { 
+//                if (rtcDate.second < 58)
+//                    beepDi(500);
+//                else 
                    MusicPlay1();                                        // Play ready to sleep music beepDi(5000); // 持续发声 小字三组C，大概持续2.4s。                    
             } else { 
                 beepDi(0);
             }
 
-            if ((rtcDate.hour == 22u && rtcDate.minute >= 10u) ||
+            if ((rtcDate.hour == 22u && rtcDate.minute >= 59u) ||
                 (rtcDate.hour == 23u) ||
                 (rtcDate.hour == 0u)  || 
-                (rtcDate.hour == 1u && rtcDate.minute <= 10u) ||
+                (rtcDate.hour == 1u && rtcDate.minute <= 00u) ||
                 ulNetForbiddenCnt > 0) {                                /* add a temporary net-forbidden time counter  */
-                GPIO1->DR  &= ~(1 << 4); 
+                RELAY_ON; 
                 if (ulNetForbiddenCnt > 0) {
                     OLED_P8x16Str(16, 4, (uint8_t *)"Remain:", 0);
                     OLED_P8x16Four(16 + 56, 4, ulNetForbiddenCnt);
@@ -440,28 +450,28 @@ int main(void)
                     OLED_P8x16Str(16, 4, (uint8_t *)"NO LMML !!!!", 1);
                 }
             } else { 
-                GPIO1->DR  |= (1 << 4); 
+                RELAY_OFF; 
                 OLED_P8x16Str(16, 4, (uint8_t *)"            ", 1);
             }
             
             /*
              * 闹钟铃声 
              */
-           if (rtcDate.hour == 06 && rtcDate.minute == 00) {
+           if (rtcDate.hour == 07 && rtcDate.minute == 00) {
                
                OLED_P8x16Str(16, 4, (uint8_t *)"Get UPPP!!!!", 1);
                
-                if (rtcDate.second < 10) {
-                    beepEi(500);
-                } else {
+//                if (rtcDate.second < 10) {
+//                    beepEi(500);
+//                } else {
                     
                     /*
-                     * 根据星期几播放的不同的音乐
+                     * 根据星期几播放的不同长度的音阶
                      */ 
                     ucWeekDay = weekCalc(rtcDate.year, rtcDate.month, rtcDate.day);        /*  0 ~ 6 */ 
                     if (ucWeekDay == 0) ucWeekDay = 7; 
                     MusicPlay2(ucWeekDay);                              // Play GetUP Music, beepEi(10000); // 持续发声，大概持续5s。
-                }
+//                }
             } else { 
                 beepDi(0);
             }  

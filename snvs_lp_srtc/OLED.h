@@ -10,17 +10,28 @@
 #include "fsl_common.h"
 #include "fsl_snvs_hp.h"
 
-#define OLED_SCL_0    GPIO5->DR  &= ~(1 << 2)
-#define OLED_SCL_1    GPIO5->DR  |=  (1 << 2)
-#define OLED_SDA_0    GPIO3->DR  &= ~(1 << 4)
-#define OLED_SDA_1    GPIO3->DR  |= (1 << 4)
-#define OLED_RST_0    GPIO3->DR  &= ~(1 << 2)
-#define OLED_RST_1    GPIO3->DR  |= (1 << 2)
-#define OLED_DC_0     GPIO2->DR  &= ~(1 << 30)
-#define OLED_DC_1     GPIO2->DR  |= (1 << 30)
-#define OLED_CS_0     GPIO1->DR  &= ~(1 << 20)
-#define OLED_CS_1     GPIO1->DR  |= (1 << 20)
+//#define OLED_SCL_0    GPIO5->DR  &= ~(1 << 2)
+//#define OLED_SCL_1    GPIO5->DR  |=  (1 << 2)
+//#define OLED_SDA_0    GPIO3->DR  &= ~(1 << 4)
+//#define OLED_SDA_1    GPIO3->DR  |= (1 << 4)
+//#define OLED_RST_0    GPIO3->DR  &= ~(1 << 2)
+//#define OLED_RST_1    GPIO3->DR  |= (1 << 2)
+//#define OLED_DC_0     GPIO2->DR  &= ~(1 << 30)
+//#define OLED_DC_1     GPIO2->DR  |= (1 << 30)
+//#define OLED_CS_0     GPIO1->DR  &= ~(1 << 20)
+//#define OLED_CS_1     GPIO1->DR  |= (1 << 20)
 
+/* OLED Pin Group 2*/
+#define OLED_SCL_0    GPIO5->DR  &= ~(1 << 1)
+#define OLED_SCL_1    GPIO5->DR  |=  (1 << 1)
+#define OLED_SDA_0    GPIO3->DR  &= ~(1 << 5)
+#define OLED_SDA_1    GPIO3->DR  |= (1 << 5)
+#define OLED_RST_0    GPIO3->DR  &= ~(1 << 3)
+#define OLED_RST_1    GPIO3->DR  |= (1 << 3)
+#define OLED_DC_0     GPIO2->DR  &= ~(1 << 31)
+#define OLED_DC_1     GPIO2->DR  |= (1 << 31)
+#define OLED_CS_0     GPIO1->DR  &= ~(1 << 21)
+#define OLED_CS_1     GPIO1->DR  |= (1 << 21)
 void  msDelay(uint32_t  ulDly);
 
 

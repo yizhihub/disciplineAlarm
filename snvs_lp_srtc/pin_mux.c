@@ -163,18 +163,29 @@ void BOARD_InitPins(void) {
       
       
       /*
-       * OLED pin initial 
+       * OLED pin initial Group1 and Group2 
        */ 
-  IOMUXC_SetPinMux( IOMUXC_SNVS_PMIC_STBY_REQ_GPIO5_IO02, 0U);          // SCL      
-  IOMUXC_SetPinConfig( IOMUXC_SNVS_PMIC_STBY_REQ_GPIO5_IO02,0x10B0u);
-  IOMUXC_SetPinMux( IOMUXC_GPIO_SD_B1_04_GPIO3_IO04, 0U);             // SDA      
-  IOMUXC_SetPinConfig( IOMUXC_GPIO_SD_B1_04_GPIO3_IO04,0x10B0u);
-  IOMUXC_SetPinMux( IOMUXC_GPIO_SD_B1_02_GPIO3_IO02, 0U);             // RST      
-  IOMUXC_SetPinConfig( IOMUXC_GPIO_SD_B1_02_GPIO3_IO02,0x10B0u);
-  IOMUXC_SetPinMux( IOMUXC_GPIO_B1_14_GPIO2_IO30, 0U);                // D/C      
-  IOMUXC_SetPinConfig( IOMUXC_GPIO_B1_14_GPIO2_IO30,0x10B0u);
-  IOMUXC_SetPinMux( IOMUXC_GPIO_AD_B1_04_GPIO1_IO20, 0U);             // CS      
-  IOMUXC_SetPinConfig( IOMUXC_GPIO_AD_B1_04_GPIO1_IO20,0x10B0u);  
+    IOMUXC_SetPinMux( IOMUXC_SNVS_PMIC_STBY_REQ_GPIO5_IO02, 0U);          // SCL      
+    IOMUXC_SetPinConfig( IOMUXC_SNVS_PMIC_STBY_REQ_GPIO5_IO02,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_SD_B1_04_GPIO3_IO04, 0U);             // SDA      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_SD_B1_04_GPIO3_IO04,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_SD_B1_02_GPIO3_IO02, 0U);             // RST      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_SD_B1_02_GPIO3_IO02,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_B1_14_GPIO2_IO30, 0U);                // D/C      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_B1_14_GPIO2_IO30,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_AD_B1_04_GPIO1_IO20, 0U);             // CS      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_AD_B1_04_GPIO1_IO20,0x18B0U);
+
+    IOMUXC_SetPinMux( IOMUXC_SNVS_PMIC_ON_REQ_GPIO5_IO01, 0U);          // SCL      
+    IOMUXC_SetPinConfig( IOMUXC_SNVS_PMIC_ON_REQ_GPIO5_IO01,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_SD_B1_05_GPIO3_IO05, 0U);             // SDA      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_SD_B1_05_GPIO3_IO05,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_SD_B1_03_GPIO3_IO03, 0U);             // RST      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_SD_B1_03_GPIO3_IO03,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_B1_15_GPIO2_IO31, 0U);                // D/C      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_B1_15_GPIO2_IO31,0x10B0u);
+    IOMUXC_SetPinMux( IOMUXC_GPIO_AD_B1_05_GPIO1_IO21, 0U);             // CS      
+    IOMUXC_SetPinConfig( IOMUXC_GPIO_AD_B1_05_GPIO1_IO21,0x10B0u);  
   
   /*
    *  Beep pin
