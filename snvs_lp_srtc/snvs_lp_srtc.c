@@ -73,13 +73,16 @@ void MusicPlay1(void)
     VS_Restart_Play();                                                  // 重启播放 
     VS_Set_All();                                                       // 设置音量等信息 
     VS_Reset_DecodeTime();                                              // 复位解码时间  
-    OLED_P8x16Str(16, 4, (uint8_t *)"PLay#1......", 1);    
+	  OLED_P8x16Str(16, 4, (uint8_t *)"PLay#1:", 1);    
     while (lCount > 0) {
 
         #if DEBUG_DISABLE_MUSIC == 0
         if (VS_Send_MusicData(&Chongerfei[i]) == 0) {
              i += 32;
              lCount -= 32;
+						 if (i % 512 == 0) {
+						     OLED_P8x16Num5(16 + 56, 4, i / 512); 
+						 }
         } else {
             GPIO1->DR ^= (1 << 19);  
             WDOG_Refresh(ptWdog_base);
@@ -105,7 +108,7 @@ void MusicPlay2(uint8_t week)
     VS_Restart_Play();                                                  //重启播放
     VS_Set_All();                                                       //设置音量等信息
     VS_Reset_DecodeTime();                                              //复位解码时间
-    OLED_P8x16Str(16, 4, (uint8_t *)"PLay#2......", 1); 
+	  OLED_P8x16Str(16, 4, (uint8_t *)"PLay#2:", 1); 
    
     /*
      * 无论星期几，播放时间都控制在1min左右，18x32s
@@ -126,6 +129,9 @@ void MusicPlay2(uint8_t week)
             if (VS_Send_MusicData(&Xiaoziyizu[i]) == 0) {
                  i += 32;
                  lCount -= 32;
+							   if (i % 512 == 0) {
+									   OLED_P8x16Num5(16 + 56, 4, i / 512); 
+							   }
             } else {
                 GPIO1->DR ^= (1 << 19);  
                 WDOG_Refresh(ptWdog_base);

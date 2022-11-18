@@ -99,16 +99,16 @@ void VS_Init(void)
     CLOCK_SetMux(kCLOCK_LpspiMux, 1);
     CLOCK_SetDiv(kCLOCK_LpspiDiv, 7);
     
-    masterConfig.baudRate = 2000000;                      // 2MHz (actuall 1.992MHz use oscilloscope)
+    masterConfig.baudRate = 1500000;                      // 2MHz (actuall 1.992MHz use oscilloscope)
     masterConfig.bitsPerFrame = 8;
     masterConfig.cpol = kLPSPI_ClockPolarityActiveHigh;
     masterConfig.cpha = kLPSPI_ClockPhaseFirstEdge;
     masterConfig.direction = kLPSPI_MsbFirst;
 
-    masterConfig.pcsToSckDelayInNanoSec = 10;          //20(actually 34ns use oscilloscope)    100ns(actually 112ns use Oscil) 10ns(actuall 14ns)
-    masterConfig.lastSckToPcsDelayInNanoSec = 100;     //200(actuall 200ns exactly use Oscill) tXCSH min = 1 CLKI cycle 
+    masterConfig.pcsToSckDelayInNanoSec = 20;          //20(actually 34ns use oscilloscope)    100ns(actually 112ns use Oscil) 10ns(actuall 14ns)
+    masterConfig.lastSckToPcsDelayInNanoSec = 200;     //200(actuall 200ns exactly use Oscill) tXCSH min = 1 CLKI cycle 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;          //600->200 otherwise it will stuck in 1038A (search this) or add some delay after 1038B func.
-    masterConfig.betweenTransferDelayInNanoSec = 100;  //600(actuall 600ns exactly use Oscill) 
+    masterConfig.betweenTransferDelayInNanoSec = 600;  //600(actuall 600ns exactly use Oscill) 
 
     masterConfig.whichPcs = VS_LPSPI_MASTER_PCS_FOR_INIT_XDCS;
     masterConfig.pcsActiveHighOrLow = kLPSPI_PcsActiveLow;
