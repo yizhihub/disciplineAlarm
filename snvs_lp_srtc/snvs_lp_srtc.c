@@ -81,7 +81,7 @@ void MusicPlay1(void)
              i += 32;
              lCount -= 32;
 						 if (i % 512 == 0) {
-						     OLED_P8x16Num5(16 + 56, 4, i / 512); 
+						     OLED_P8x16Num5(16 + 56, 4, i >> 9); 
 						 }
         } else {
             GPIO1->DR ^= (1 << 19);  
@@ -95,11 +95,8 @@ void MusicPlay1(void)
 
 void MusicPlay2(uint8_t week)
 {
-    INT32S lCount,i,j,lDatalen, lDatalenSevenDivide;
-    lDatalen            =  0x9DEBC;
-    lDatalenSevenDivide = (lDatalen + 7u) / 7u;
-    
-    i      = 0;
+    INT32S lCount, i, j, lDatalenSevenDivide;
+    lDatalenSevenDivide = (0x9DEBC) / 7u;
 
     VS_Init();
 //    VS_HD_Reset();
@@ -111,14 +108,10 @@ void MusicPlay2(uint8_t week)
 	  OLED_P8x16Str(16, 4, (uint8_t *)"PLay#2:", 1); 
    
     /*
-     * 无论星期几，播放时间都控制在1min左右，18x32s
+	   * 无论星期几，播放时间都控制在1min左右，18x5s, 播放一个完整的小字一组音阶用时18s 
      */
-    for (j = 0; j < ((8 - week) << 5); j++) {
-        if (week < 7)
-            lCount = lDatalenSevenDivide * week;                        // week = 1~7
-        else 
-            lCount = lDatalen;
-
+    for (j = 0; j < ((8 - week) * 5); j++) {
+        lCount = lDatalenSevenDivide * week;                        // week = 1~7
         i = 0;
         VS_Restart_Play();                                              //重启播放
         VS_Set_All();                                                   //设置音量等信息
@@ -130,7 +123,7 @@ void MusicPlay2(uint8_t week)
                  i += 32;
                  lCount -= 32;
 							   if (i % 512 == 0) {
-									   OLED_P8x16Num5(16 + 56, 4, i / 512); 
+									   OLED_P8x16Num5(16 + 56, 4,((j * lDatalenSevenDivide * week) >> 9) + (i >> 9)); 
 							   }
             } else {
                 GPIO1->DR ^= (1 << 19);  
