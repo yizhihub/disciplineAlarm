@@ -73,7 +73,7 @@ void MusicPlay1(void)
     VS_Restart_Play();                                                  // 重启播放 
     VS_Set_All();                                                       // 设置音量等信息 
     VS_Reset_DecodeTime();                                              // 复位解码时间  
-	  OLED_P8x16Str(16, 4, (uint8_t *)"PLay#1:", 1);    
+	  OLED_P8x16Str(16, 4, (uint8_t *)"PLay#1:", 1);// ceshi 
     while (lCount > 0) {
 
         #if DEBUG_DISABLE_MUSIC == 0
