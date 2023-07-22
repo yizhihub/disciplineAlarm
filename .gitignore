@@ -80,3 +80,4 @@ settings
 #*.ewp  this IAR config file contain Options->C/C++ compiler->Preprocessor path info. and workspace files info.
 #*.ewt  this IAR config file contain workspace dir tree info.
 
+/snvs_lp_srtc/mdk/JLinkSettings.ini

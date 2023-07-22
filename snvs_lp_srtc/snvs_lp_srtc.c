@@ -425,9 +425,9 @@ int main(void)
 
             
             /*
-             * 断网断电前警报提醒及继电器动作
+             *  睡觉提示
              */ 
-            if (rtcDate.hour == 22u && rtcDate.minute == 59u) { 
+            if (rtcDate.hour == 22u && rtcDate.minute == 35u) { 
 //                if (rtcDate.second < 58)
 //                    beepDi(500);
 //                else 
@@ -436,15 +436,11 @@ int main(void)
                 beepDi(0);
             }
 
-            if ((rtcDate.hour == 22u && rtcDate.minute >= 59u) ||
-                (rtcDate.hour == 23u) ||
-                (rtcDate.hour == 0u)  || 
-                (rtcDate.hour == 1u && rtcDate.minute <= 00u) ||
-                ulNetForbiddenCnt > 0) {                                /* add a temporary net-forbidden time counter  */
+            if (rtcDate.hour <= 1u) {                                
                 RELAY_ON; 
                 if (ulNetForbiddenCnt > 0) {
                     OLED_P8x16Str(16, 4, (uint8_t *)"Remain:", 0);
-                    OLED_P8x16Four(16 + 56, 4, ulNetForbiddenCnt);
+                    OLED_P8x16Four(16 + 56, 4, ulNetForbiddenCnt);     /* add a temporary net-forbidden time counter  */
                 } else {                    
                     OLED_P8x16Str(16, 4, (uint8_t *)"NO LMML !!!!", 1);
                 }
